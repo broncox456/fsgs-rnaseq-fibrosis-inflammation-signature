@@ -1,0 +1,79 @@
+2026-03-31
+
+- Project initialized (FSGS RNA-seq)
+- Folder structure created
+- Starting dataset identification and setup
+
+- Initial runlog text was pasted directly into PowerShell by mistake
+- Fixed by writing the content into runlog.txt using Set-Content
+
+- GEOquery already installed (no reinstallation needed)
+- Proceeded with data import
+
+
+- Dataset GSE104954 downloaded successfully
+- Initial inspection showed two GPL series matrix files
+- Determined that the dataset corresponds to microarray platforms rather than RNA-seq
+- Decision: do not use GSE104954 for the final FSGS RNA-seq project
+- Next step: identify a true RNA-seq dataset with usable metadata
+
+
+2026-03-31
+
+- Loaded final cohort: 93 FSGS vs 8 controls
+- Constructed DESeq2 dataset using group as design variable
+
+- Applied low-count filtering (row sum >= 10)
+- Retained 37,444 genes after filtering
+
+- Ran DESeq2 pipeline:
+  - size factor estimation
+  - dispersion estimation
+  - model fitting
+
+- Outlier replacement triggered for 2,642 genes (default DESeq2 behavior)
+
+- Differential expression results:
+  - total significant genes (padj < 0.05, |log2FC| > 1): 2,473
+
+- Generated PCA plot and volcano plot
+
+- No critical errors during execution
+
+Notes:
+- Group variable initially detected as character and automatically converted to factor
+- Sample imbalance noted (93 vs 8), interpretation should consider this limitation
+
+
+- Loaded 2,473 significant genes from DESeq2 results
+- Converted ENSEMBL IDs to ENTREZ IDs for enrichment analysis
+- Mapped 2,028 genes successfully
+- Approximately 19.33% of gene IDs did not map to ENTREZ (acceptable for public RNA-seq annotation workflows)
+- Observed 1:many mapping for some gene identifiers during annotation conversion
+- Completed GO Biological Process enrichment
+- Completed KEGG pathway enrichment
+- Generated GO and KEGG dotplots successfully
+
+Notes:
+- Partial gene ID loss is expected during ENSEMBL to ENTREZ conversion
+- Annotation ambiguity for some genes should be considered during interpretation
+
+
+- pheatmap package was not available in environment
+- Installed pheatmap from CRAN
+- Resumed signature heatmap generation
+
+
+- Signature heatmap generated successfully
+- Included 39 curated genes across inflammation and fibrosis panels
+- Heatmap built on 101 samples (93 FSGS, 8 controls)
+- Directed visualization confirms that the project captures biologically interpretable disease axes beyond global differential expression
+
+
+- Calculated patient-level inflammation and fibrosis scores
+- Observed higher scores in FSGS compared to controls:
+  - inflammation: 8.86 vs 7.92
+  - fibrosis: 11.3 vs 10.6
+- Results support a combined immune and fibrotic disease phenotype in FSGS
+- Demonstrated ability to translate transcriptomic data into patient-level biological interpretation
+
