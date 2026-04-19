@@ -1,4 +1,4 @@
-# FSGS RNA-seq – Fibrosis Progression Signature
+﻿# FSGS RNA-seq – Fibrosis Progression Signature
 
 Can transcriptomic patterns reveal biologically meaningful subgroups and fibrosis-related signals in FSGS?
 
@@ -6,30 +6,57 @@ Can transcriptomic patterns reveal biologically meaningful subgroups and fibrosi
 
 ---
 
+## Project Overview
+
+This project explores transcriptomic heterogeneity in focal segmental glomerulosclerosis (FSGS) using RNA-seq data, with emphasis on fibrosis-related and inflammatory biological signals.
+
+The analysis was designed to identify molecular subgroups, characterize differential expression patterns, and evaluate whether transcriptomic signatures reveal disease biology beyond routine clinical variables.
+
+---
+
 ## Key Findings
 
-* Distinct transcriptomic clusters suggest biological heterogeneity in FSGS
-* Fibrosis and inflammatory pathways are consistently enriched in specific patient subgroups
-* Gene expression patterns reflect underlying disease mechanisms beyond routine clinical variables
+- Two main transcriptomic patient clusters were identified, suggesting biological heterogeneity within FSGS
+- Fibrosis-related and inflammatory pathways were consistently enriched across subgroup comparisons
+- Differential expression analysis highlighted genes linked to extracellular matrix remodeling, immune activation, and disease progression
+- The results support the idea that FSGS is a biologically heterogeneous disease not fully captured by conventional clinical descriptors
 
 ---
 
 ## Clinical Context
 
-Focal segmental glomerulosclerosis (FSGS) is a heterogeneous glomerular disease with variable clinical progression and treatment response.
+Focal segmental glomerulosclerosis (FSGS) is a heterogeneous glomerular disease with variable progression, treatment response, and long-term renal outcomes.
 
-Traditional clinical parameters often fail to fully capture disease behavior. Transcriptomic analysis offers an opportunity to explore underlying molecular patterns associated with fibrosis, inflammation, and disease heterogeneity.
+Traditional clinical parameters often fail to fully explain this variability. Transcriptomic analysis provides an opportunity to identify molecular patterns associated with fibrosis, inflammation, and subgroup-specific disease behavior.
 
 ---
 
-## Data
+## Data Source
 
 Main project inputs:
 
-* Expression matrix: `data/processed/fsgs_counts_final.csv`
-* Metadata: `data/metadata/fsgs_metadata_final.csv`
+- Expression matrix: `data/processed/fsgs_counts_final.csv`
+- Metadata: `data/metadata/fsgs_metadata_final.csv`
 
-The analysis is based on curated RNA-seq data and corresponding clinical metadata.
+Raw inputs include:
+
+- `data/raw/GSE254957_NEPTUNE_GSE197307_UpdatedCountData.txt.gz`
+- `data/raw/GSE254957_updatedMatrix.txt.gz`
+
+This analysis is based on curated RNA-seq data and corresponding metadata derived from public nephrology-related transcriptomic resources.
+
+---
+
+## Study Design
+
+- RNA-seq cohort curation and metadata harmonization
+- Expression matrix preprocessing
+- Removal of zero-variance genes
+- Principal component analysis (PCA)
+- Unsupervised patient clustering
+- Differential expression analysis with DESeq2
+- Functional enrichment analysis using GO and KEGG
+- Signature-oriented visualization of fibrosis and inflammation patterns
 
 ---
 
@@ -37,29 +64,28 @@ The analysis is based on curated RNA-seq data and corresponding clinical metadat
 
 ### Analytical Strategy
 
-The workflow was designed to prioritize interpretability and reproducibility:
+The workflow prioritized interpretability and biological relevance:
 
-* Direct use of expression matrix and curated metadata
-* Removal of zero-variance genes after detecting PCA instability
-* Dimensionality reduction using PCA
-* Unsupervised clustering to identify transcriptomic subgroups
-* Differential expression analysis to characterize cluster differences
-* Functional enrichment analysis (GO and KEGG)
+- direct use of curated count matrix and metadata
+- variance filtering after detecting PCA instability
+- dimensionality reduction with PCA
+- unsupervised clustering to identify transcriptomic subgroups
+- differential expression analysis to characterize molecular differences
+- functional enrichment analysis to interpret biological pathways
+- signature-level visualization focused on fibrosis and inflammation
 
----
+### Pipeline Steps
 
-### Workflow
-
-1. Load and validate expression matrix
-2. Curate metadata and define analysis cohort
-3. Preprocess expression data
+1. Load raw and processed expression inputs
+2. Curate metadata and define the final analysis cohort
+3. Preprocess count data
 4. Remove zero-variance genes
-5. Perform PCA for exploratory analysis
-6. Apply patient clustering
-7. Evaluate fibrosis and inflammation signals
-8. Generate heatmaps and signature patterns
-9. Perform differential expression analysis
-10. Perform functional enrichment analysis
+5. Perform PCA
+6. Identify transcriptomic patient clusters
+7. Run differential expression analysis
+8. Perform GO and KEGG enrichment analysis
+9. Generate fibrosis/inflammation signature outputs
+10. Produce publication-style visualizations and final summary tables
 
 ---
 
@@ -67,91 +93,140 @@ The workflow was designed to prioritize interpretability and reproducibility:
 
 ### Patient Clustering
 
-Two main transcriptomic clusters were identified:
+Two major transcriptomic clusters were identified:
 
-* Cluster 1: 11 samples
-* Cluster 2: 90 samples
+- Cluster 1: 11 samples
+- Cluster 2: 90 samples
 
-The presence of a smaller cluster suggests a biologically distinct subgroup, potentially reflecting a more severe or differentiated disease phenotype.
+The presence of a smaller cluster suggests a biologically distinct subgroup that may reflect a more aggressive or differentiated transcriptomic phenotype.
 
----
+### Differential Expression
+
+The project generated:
+
+- full differential expression results: `results/differential_expression/deseq2_results_full.csv`
+- significant genes: `results/differential_expression/deseq2_results_significant.csv`
+- final ranked genes: `results/tables/top_genes_final.csv`
+
+These outputs support the presence of subgroup-specific molecular differences.
 
 ### Biological Signals
 
-The analysis highlights two dominant processes:
+The dominant biological patterns were:
 
-#### 1. Fibrosis-related activity
+#### Fibrosis-related activity
+- extracellular matrix remodeling
+- structural tissue response
+- increased expression of fibrosis-associated genes
 
-* Enrichment of extracellular matrix and structural pathways
-* Increased expression of fibrosis-associated genes
+#### Inflammatory signaling
+- immune pathway activation
+- inflammatory contribution to progression
+- transcriptomic evidence of biologically active disease heterogeneity
 
-#### 2. Inflammatory signaling
+### Key Visual Outputs
 
-* Activation of immune-related pathways
-* Evidence of inflammatory contribution to disease progression
-
----
-
-### Visualization Outputs
-
-Key outputs include:
-
-* PCA plots (patient structure)
-* Heatmaps (gene expression patterns)
-* Volcano plots (differential expression)
-* Enrichment dotplots (GO and KEGG)
-* Top gene signatures
+- PCA plot: `results/figures/pca_plot.png`
+- Patient clustering PCA: `results/figures/patient_clustering_pca.png`
+- Volcano plot: `results/figures/volcano_plot.png`
+- Signature heatmap: `results/figures/signature_heatmap.png`
+- GO dotplot: `results/figures/go_dotplot.png`
+- KEGG dotplot: `results/figures/kegg_dotplot.png`
+- Top genes figure: `results/figures/top_genes_final.png`
 
 ---
 
 ## Interpretation
 
-FSGS is not a uniform disease.
+This project supports the concept that FSGS is not a uniform disease entity.
 
-Transcriptomic analysis reveals:
-
-* Distinct molecular subgroups
-* Variable activation of fibrosis and inflammatory pathways
-* Biological heterogeneity not captured by clinical variables alone
+Instead, transcriptomic profiling reveals biologically meaningful subgroup structure, with differential activation of fibrosis-related and inflammatory pathways. These findings suggest that molecular stratification may improve disease interpretation beyond standard clinical descriptors alone.
 
 ---
 
 ## Limitations
 
-* Moderate sample size
-* Lack of external validation cohort
-* No integration with longitudinal clinical outcomes
+- moderate sample size
+- no external validation cohort
+- no direct integration with longitudinal renal outcomes
+- transcriptomic findings remain hypothesis-generating in the absence of independent validation
 
 ---
 
 ## Why This Matters
 
-This project demonstrates that:
+This project demonstrates that RNA-seq analysis can be used to:
 
-* Transcriptomic data can reveal biologically meaningful subgroups
-* Molecular patterns may help refine disease understanding
-* Interpretation of biological signals is more valuable than pipeline complexity
-
----
-
-## Reproducibility
-
-Repository structure:
-
-* `data/`
-* `scripts/`
-* `results/`
-* `results/figures/`
-
-Outputs include clustering results, differential expression tables, enrichment analysis, and visualization figures.
+- identify biologically meaningful FSGS subgroups
+- characterize fibrosis and inflammation-related molecular programs
+- generate clinically relevant hypotheses for precision nephrology
+- move from descriptive disease labels toward molecularly informed interpretation
 
 ---
+
+## Project Structure
+
+```text
+.
+├── data/
+│   ├── raw/
+│   ├── metadata/
+│   └── processed/
+├── docs/
+├── results/
+│   ├── differential_expression/
+│   ├── enrichment/
+│   ├── figures/
+│   └── tables/
+├── scripts/
+│   ├── 00_setup.R
+│   ├── 01_data_import.R
+│   ├── 02_metadata_extraction.R
+│   ├── 03_build_fsgs_cohort.R
+│   ├── 04_deseq2_analysis.R
+│   ├── 05_clustering.R
+│   ├── 06_enrichment_analysis.R
+│   ├── 07_signature_gene_panels.R
+│   ├── 08_signature_heatmap.R
+│   └── 09_signature_scores.R
+└── README.md
+
+## Reproducibility : 
+
+-Requirements
+
+This project was developed in R using transcriptomic analysis packages including DESeq2 and enrichment analysis tools.
+
+Install required packages in R before running the workflow.
+
+## Execution Order
+
+Run scripts in this order:
+
+-source("scripts/00_setup.R")
+-source("scripts/01_data_import.R")
+-source("scripts/02_metadata_extraction.R")
+-source("scripts/03_build_fsgs_cohort.R")
+-source("scripts/04_deseq2_analysis.R")
+-source("scripts/05_clustering.R")
+-source("scripts/06_enrichment_analysis.R")
+-source("scripts/07_signature_gene_panels.R")
+-source("scripts/08_signature_heatmap.R")
+-source("scripts/09_signature_scores.R")
+
+## Main outputs : 
+
+-clustering results: results/tables/patient_clustering_results.csv
+-signature scores: results/tables/patient_signature_scores.csv
+-top genes table: results/tables/top_genes_final.csv
+-significant DE genes: results/differential_expression/deseq2_results_significant.csv
+-enrichment results: results/enrichment/go_results.csv, results/enrichment/kegg_results.csv
 
 ## Author
 
 Cristian Arias, MD
-Internal Medicine & Nephrology  
-Healthcare Data Analyst  
-Bioinformatics Master's Candidate  
+Internal Medicine & Nephrology
+Healthcare Data Analyst
+Bioinformatics Master's Candidate
 
 Focused on clinical data analysis and translational applications in kidney disease.

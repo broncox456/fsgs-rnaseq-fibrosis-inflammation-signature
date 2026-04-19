@@ -3,3 +3,4 @@
 .Rproj.user/
 __pycache__/
 *.ipynb_checkpoints
+.Rhistory
