@@ -190,37 +190,36 @@ This project demonstrates that RNA-seq analysis can be used to:
 │   ├── 08_signature_heatmap.R
 │   └── 09_signature_scores.R
 └── README.md
+```
 
-## Reproducibility : 
+## Reproducibility
 
--Requirements
+### Requirements
 
-This project was developed in R using transcriptomic analysis packages including DESeq2 and enrichment analysis tools.
+Developed in R. Requires DESeq2 and standard functional-enrichment packages (clusterProfiler and dependencies). Install these before running the workflow.
 
-Install required packages in R before running the workflow.
+### Execution Order
 
-## Execution Order
+```r
+source("scripts/00_setup.R")
+source("scripts/01_data_import.R")
+source("scripts/02_metadata_extraction.R")
+source("scripts/03_build_fsgs_cohort.R")
+source("scripts/04_deseq2_analysis.R")
+source("scripts/05_clustering.R")
+source("scripts/06_enrichment_analysis.R")
+source("scripts/07_signature_gene_panels.R")
+source("scripts/08_signature_heatmap.R")
+source("scripts/09_signature_scores.R")
+```
 
-Run scripts in this order:
+### Main Outputs
 
--source("scripts/00_setup.R")
--source("scripts/01_data_import.R")
--source("scripts/02_metadata_extraction.R")
--source("scripts/03_build_fsgs_cohort.R")
--source("scripts/04_deseq2_analysis.R")
--source("scripts/05_clustering.R")
--source("scripts/06_enrichment_analysis.R")
--source("scripts/07_signature_gene_panels.R")
--source("scripts/08_signature_heatmap.R")
--source("scripts/09_signature_scores.R")
-
-## Main outputs : 
-
--clustering results: results/tables/patient_clustering_results.csv
--signature scores: results/tables/patient_signature_scores.csv
--top genes table: results/tables/top_genes_final.csv
--significant DE genes: results/differential_expression/deseq2_results_significant.csv
--enrichment results: results/enrichment/go_results.csv, results/enrichment/kegg_results.csv
+- Clustering results: `results/tables/patient_clustering_results.csv`
+- Signature scores: `results/tables/patient_signature_scores.csv`
+- Top genes table: `results/tables/top_genes_final.csv`
+- Significant DE genes: `results/differential_expression/deseq2_results_significant.csv`
+- Enrichment results: `results/enrichment/go_results.csv`, `results/enrichment/kegg_results.csv`
 
 ---
 
