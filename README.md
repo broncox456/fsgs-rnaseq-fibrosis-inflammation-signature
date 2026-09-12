@@ -222,11 +222,16 @@ Run scripts in this order:
 -significant DE genes: results/differential_expression/deseq2_results_significant.csv
 -enrichment results: results/enrichment/go_results.csv, results/enrichment/kegg_results.csv
 
+---
+
+## Scope and Disclaimer
+
+**Status:** public-data reanalysis — hypothesis-generating, no external validation cohort; transcriptomic clusters are unbalanced (11 vs 90 samples). Not a validated clinical tool, not a medical device, no regulatory clearance. Results must not be used for patient-level decisions.
+
+**Data provenance:** public RNA-seq resources derived from NEPTUNE-related GEO datasets (GSE254957 / GSE197307). No identifiable patient data are used or shared.
+
 ## Author
 
-Cristian Arias, MD
-Internal Medicine & Nephrology
-Healthcare Data Analyst
-Bioinformatics Master's Candidate
+**Cristian Arias Ramírez, MD, MSc** — Nephrologist & Internal Medicine Specialist · MSc Bioinformatics and Precision Medicine (Universidad Alfonso X el Sabio, 2026)
 
-Focused on clinical data analysis and translational applications in kidney disease.
+[LinkedIn](https://www.linkedin.com/in/cristian-arias-healthcare-data/) · [Full portfolio](https://github.com/broncox456)
